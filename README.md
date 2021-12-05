@@ -1,6 +1,6 @@
-# lisy
+# Advent Calenday
 
-Template repository for static vuejs app
+
 ## Project setup
 ```
 npm install
@@ -14,7 +14,7 @@ npm run serve
 ### Compiles and minifies for production
 
 ```
-deploy.sh
+deploy.bat
 ```
 
 ### Customize configuration
