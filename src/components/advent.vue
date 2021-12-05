@@ -1,35 +1,24 @@
 <template>
     <div >
-        <section >
-            <img :src="getimgpath('main')" class="main-img" alt=""/>
+        <section class="main-img">
+            <!-- <img :src="getimgpath('main')" class="main-img" alt=""/> -->
 
-            <!-- <div v-for="item in days" :key="item.id"
-                class="widowframe"
-                :style="{ top: item.top ,
-                          left:item.left ,
-                          width:item.width ,
-                          height:item.height
-                        }"
-                @click="currentimg=item.text;openmodal()"
-                >
-                <div class="day" :style="{top:item.texttop}">
-                        {{item.text}}
-                </div>
-            </div> -->
-            <div class="wrapper">
-              <div v-for="item in [1,2,3,4,8,6,6,8,9,10,11,12,13,20,15,16,17,18,19,14,21,22,23,24]"
-               :key="item.id"
-               @click="currentimg=item;openmodal()"
-               >
-                {{ item }}
-              </div>
+          <div class="year">{{imgpath.split('/')[0]}}</div>
+          <div class="wrapper">
+            <div v-for="item in days" class="day"
+              :key="item.id"
+              @click="currentimg=item;openmodal(item)"
+            >
+            {{ item }}
             </div>
+          </div>
+
         </section>
 
         <div class="modal" :style="{display:displaymodal}">
           <div class="modal-content">
-              <img :src="getimgpath(currentimg)" alt="" >
-              <v-icon class="white--text topleft " @click="closemodal()">mdi-close</v-icon>
+            <img :src="getimgpath(currentimg)" alt="" >
+            <v-icon class="white--text topleft " @click="closemodal()">mdi-close</v-icon>
           </div>
         </div>
     </div>
@@ -37,18 +26,42 @@
 
 <script>
 export default {
+  props: {
+    imgpath: {
+      type: String,
+      default: () => '2021/fr',
+    },
+  },
   data() {
     return {
       key: 0,
-      imgpath: '2021/fr',
       currentimg: '',
       days: [
-        {
-          text: 1, top: '10px', left: '10px', width: '100px', height: '150px', texttop: '10px',
-        },
-        {
-          text: 2, top: '150px', left: '150px', width: '150px', height: '150px', texttop: '10px',
-        },
+        2,
+        14,
+        4,
+        6,
+        21,
+        8,
+        7,
+        22,
+        5,
+        10,
+        16,
+        24,
+        11,
+        12,
+        9,
+        13,
+        23,
+        15,
+        1,
+        17,
+        18,
+        3,
+        19,
+        20,
+
       ],
       displaymodal: 'none',
 
@@ -92,14 +105,17 @@ $imgradius:8px;
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 .main-img {
-    width: 100%;
-    object-fit: scale-down;
+    // width: 100%;
+    // object-fit: scale-down;
+    // background-repeat: repeat;
+    background-image:
+    linear-gradient(to bottom, rgba(255,255,0,0.5), rgba(0,0,255,0.5))
 }
 .modal-content {
   background-color: #fefefe;
   position:absolute;
   top:3rem;
-  left:10%;
+  // left:10%;
   max-width: 80%;
   padding: 20px;
   border: 0px solid #888;
@@ -128,31 +144,55 @@ $imgradius:8px;
     padding: auto;
     text-align: center;
 }
-.day{
-    position: relative;
-}
+
 .wrapper {
   display: flex;
+  width: 100%;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  position:absolute;
-  top:0px;
+
 }
-.wrapper > div {
-    border: 5px dashed white;
-    color:white;
+.year {
+
+  width: 100%;
+  font-size: 5rem;
+  text-align: center;
+}
+.day {
+  border: 2px dashed green;
+  border-radius: 0.5rem;
+    color:green;
+    font-size: 1.5rem;
+    min-width: 25%;
+    margin: 0.2rem;
+  // align-content: stretch;
+  text-align: center;
+}
+@media screen and (min-width: 640px){
+  .day {
+    margin: 1.2rem;
     font-size: 5rem;
-    min-width: 4rem;
-    margin: auto;
-    padding: 10px;
-    text-align: center;
+    min-width: 10rem;
+  }
+
+  .modal-content {
+    display: block;
+    text-align: end;
+    ;
 }
-.wrapper :nth-child(3n){
-  font-size: 6rem;
-  border: 1px solid blue;
+  .modal-content > img{
+    max-height: 600px;
+  }
 }
-.wrapper :nth-child(2n){
-  font-size: 4rem;
-  border: 1px solid green;
+
+.wrapper :nth-child(2){
+  // flex-grow: 2;
+  align-self: flex-start;
 }
+.wrapper :nth-child(3){
+  min-height: 10rem;
+  flex-grow: 6;
+  align-self: flex-start;
+}
+
 </style>
